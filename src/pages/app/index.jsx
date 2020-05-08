@@ -1,5 +1,7 @@
 import React from 'react';
 
-export default function App() {
-  return <div>app</div>;
+import css from './index.module.less';
+
+export default function App(props) {
+  return <div className={css['app-wrapper']}>{props.children}</div>;
 }

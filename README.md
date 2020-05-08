@@ -98,3 +98,41 @@ cra默认已经安装使用了`dotenv`,可以直接在根目录添加以下文�
 
 # 项目初始化
 
+1. 安装react全家桶以及必须库
+`yarn add axios immutable normalize.css react-redux react-router-dom redux redux-immutable redux-logger redux-thunk @loadable/component`
+
+2. 在`src`下增加`config`文件夹，同时增加`index.js`文件
+``` javascript
+const env = process.env;
+
+const { REACT_APP_URL_TYPE, REACT_APP_AUTH_TOKEN } = env;
+const getUrl = () => {
+  switch (REACT_APP_URL_TYPE) {
+    case 'dev':
+      return 'http://101.132.40.63:7099/rest';
+    case 'qa':
+      return 'http://101.132.40.63:7099/rest';
+    case 'prod':
+      return 'http://101.132.40.63:7099/rest';
+    default:
+      return 'http://101.132.40.63:7099/rest';
+  }
+};
+
+export default {
+  token: REACT_APP_AUTH_TOKEN,
+  baseUrl: getUrl()
+};
+```
+用于根据当前环境变量返回不同的配置内容
+
+3. 封装异步请求方法
+在`src`下增加`utils\axios.js`和`utils\request.js`
+
+4. 添加全局样式`src\styles\index.less`
+
+5. 创建路由
+
+6. 创建store
+
+7. 关于使用`less.module`的bug:[issues](https://github.com/arackaf/customize-cra/issues/242)
