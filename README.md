@@ -85,4 +85,16 @@
   ```
   这样在`git commit`的时候，会自动执行`lint`和`prettier`两条命令
 
-  
+7. 使用`dotenv`环境变量
+cra默认已经安装使用了`dotenv`,可以直接在根目录添加以下文件:
+通用配置：`.env`
+开发配置：`.env.development`
+生产环境: `.env.production`
+测试环境：`.env.qa`
+
+同时修改`package.json`中的命令,由于`start`和`build`默认已经是开发环境和生产环境了，因此只需要增加一个测试环境打包的命令:`"build:qa": "dotenv -e .env.qa react-app-rewired build",`
+
+注意: 需要先使用`yarn add dotenv-cli -D`安装依赖
+
+# 项目初始化
+
