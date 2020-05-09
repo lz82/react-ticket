@@ -18,7 +18,7 @@ const Ticket = lazyLoad(import('@/pages/ticket'));
 export default function Routers() {
   return (
     <Router>
-      {/* <ScrollToTop /> */}
+      <ScrollToTop />
       <Switch>
         <Route path="/home" render={(props) => <Home {...props} />} />
         <Route path="/order" render={(props) => <Order {...props} />} />
