@@ -10,7 +10,6 @@ const rootReducer = combineReducers({
   ...moduleReducer
 });
 
-console.log(rootReducer);
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 let store = null;

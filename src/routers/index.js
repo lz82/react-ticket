@@ -7,6 +7,8 @@ import ScrollToTop from '@/components/scroll-to-top';
 
 import lazyLoad from '@/utils/lazy-load';
 
+const Home = lazyLoad(import('@/pages/home'));
+
 const Order = lazyLoad(import('@/pages/order'));
 
 const Query = lazyLoad(import('@/pages/query'));
@@ -16,12 +18,13 @@ const Ticket = lazyLoad(import('@/pages/ticket'));
 export default function Routers() {
   return (
     <Router>
-      <ScrollToTop />
+      {/* <ScrollToTop /> */}
       <Switch>
+        <Route path="/home" render={(props) => <Home {...props} />} />
         <Route path="/order" render={(props) => <Order {...props} />} />
         <Route path="/query" render={(props) => <Query {...props} />} />
         <Route path="/ticket" render={(props) => <Ticket {...props} />} />
-        <Redirect to="/query" />
+        <Redirect to="/home" />
       </Switch>
     </Router>
   );
