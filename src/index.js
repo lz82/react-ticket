@@ -5,6 +5,8 @@ import App from './pages/app';
 import Routers from './routers';
 import store from './store';
 
+import './styles/index.less';
+
 import 'normalize.css/normalize.css';
 
 ReactDOM.render(

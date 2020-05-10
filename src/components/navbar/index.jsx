@@ -7,12 +7,11 @@ export default function Navbar(props) {
   return (
     <div className={css['navbar-wrapper']}>
       <div className={css['back']} onClick={onBack}>
-        {/* <svg width="42" height="42">
+        <svg width="42" height="42">
           <polyline points="25,13 16,21 25,29" stroke="#fff" strokeWidth="2" fill="none" />
-        </svg> */}
-        返回
+        </svg>
       </div>
-      <h1 className={css['title"']}>{title || '标题'}</h1>
+      <h1 className={css['title']}>{title || '标题'}</h1>
     </div>
   );
 }
