@@ -22,5 +22,43 @@ export const actionCreators = {
       type: actionTypes.SET_STATION_TO,
       payload: to
     };
+  },
+
+  switchStation: () => {
+    return {
+      type: actionTypes.SWITCH_STATION
+    };
+  },
+
+  showCitySelector: () => {
+    return {
+      type: actionTypes.SHOW_CITY_SELECT
+    };
+  },
+
+  hideCitySelector: () => {
+    return {
+      type: actionTypes.HIDE_CITY_SELECT
+    };
+  },
+
+  setCurrentCitySide: (side) => {
+    return {
+      type: actionTypes.SET_CURRENT_CITY_SIDE,
+      payload: side
+    };
+  },
+
+  setDepartureDate: (date) => {
+    return {
+      type: actionTypes.SET_DEPARTURE_DATE,
+      payload: date
+    };
+  },
+
+  toggleHighSpeedOpt: () => {
+    return {
+      type: actionTypes.TOGGLE_HIGH_SPEED_OPT
+    };
   }
 };
