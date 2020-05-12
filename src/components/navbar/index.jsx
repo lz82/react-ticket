@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import css from './index.module.less';
 
@@ -15,3 +16,8 @@ export default function Navbar(props) {
     </div>
   );
 }
+
+Navbar.propTypes = {
+  title: PropTypes.string.isRequired,
+  onBack: PropTypes.func.isRequired
+};

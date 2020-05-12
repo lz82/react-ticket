@@ -21,6 +21,10 @@ export const getStationTo = (state) => {
   return state.getIn(['home', 'to']);
 };
 
+export const getCitySelectorStatus = (state) => {
+  return state.getIn(['home', 'showCitySelector']);
+};
+
 export default (state = fromJS(defaultState), action) => {
   switch (action.type) {
     case actionTypes.SET_STATION_FROM:
