@@ -2,10 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import css from './index.module.less';
 
 export default function ErrorToast(props) {
-  const {
-    errorMsg,
-    appAction: { clearError }
-  } = props;
+  const { errorMsg, clearError } = props;
 
   const timerRef = useRef();
 
