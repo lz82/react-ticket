@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import classnames from 'classnames';
 
 import css from './index.module.less';
@@ -7,6 +7,10 @@ export default function CitySelector(props) {
   const { onBack, show } = props;
 
   const [searchKey, setSearchKey] = useState('');
+
+  const key = useMemo(() => {
+    return searchKey.trim();
+  }, [searchKey]);
 
   return (
     <div
@@ -31,7 +35,7 @@ export default function CitySelector(props) {
           <i
             onClick={() => setSearchKey('')}
             className={classnames('iconfont', 'icon-clear', css['clear'], {
-              hidden: searchKey.length === 0
+              hidden: key.length === 0
             })}
           />
         </div>
