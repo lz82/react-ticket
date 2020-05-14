@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
-import dayjs from 'dayjs';
+import { getWeek, getDate } from '@/utils/format';
 
 import css from './index.module.less';
 
-export default function DepartureDate() {
-  const departDateString = dayjs().format('YYYY-MM-DD');
-  const weekString = '周一';
+const week = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+
+export default function DepartureDate(props) {
+  const { departDate, onClick } = props;
+  const weekString = week[getWeek() - 1];
+  const today = getDate();
+
+  const outputWeek = useMemo(() => {
+    if (departDate === today) {
+      return <span className={css['depart-week']}>{weekString}(今天)</span>;
+    } else {
+      return <span className={css['depart-week']}>{weekString}</span>;
+    }
+  }, []);
+
   return (
-    <div className={css['departure-date-wrapper']}>
-      <input type="hidden" name="date" value={departDateString} />
-      {departDateString} <span className={css['depart-week']}>{weekString}</span>
+    <div className={css['departure-date-wrapper']} onClick={onClick}>
+      <input type="hidden" name="date" value={departDate} />
+      {departDate}
+      {outputWeek}
     </div>
   );
 }

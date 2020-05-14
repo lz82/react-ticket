@@ -5,6 +5,8 @@ export const actionTypes = {
   SHOW_CITY_SELECT: 'home/show_city_select',
   HIDE_CITY_SELECT: 'home/hide_city_select',
   SET_DEPARTURE_DATE: 'home/set_departure_date',
+  SHOW_DATE_SELECT: 'home/show_date_select',
+  HIDE_DATE_SELECT: 'home/hide_date_select',
   TOGGLE_HIGH_SPEED_OPT: 'home/toggle_high_speed_opt'
 };
 
@@ -52,6 +54,18 @@ export const actionCreators = {
         dispatch(setStationTo(name));
       }
       dispatch(actionCreators.hideCitySelector());
+    };
+  },
+
+  showDateSelect: () => {
+    return {
+      type: actionTypes.SHOW_DATE_SELECT
+    };
+  },
+
+  hideDateSelect: () => {
+    return {
+      type: actionTypes.HIDE_DATE_SELECT
     };
   },
 

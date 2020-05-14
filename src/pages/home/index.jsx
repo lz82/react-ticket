@@ -6,7 +6,9 @@ import {
   homeActionCreators,
   getStationFrom,
   getStationTo,
-  getCitySelectorStatus
+  getCitySelectorStatus,
+  getDepartDate,
+  getDateSelectorStatus
 } from '@/stores/modules/home';
 
 import Navbar from '@/components/navbar';
@@ -16,11 +18,12 @@ import HighSpeed from './containers/high-speed';
 import Btn from './containers/btn';
 
 import CitySelector from '@/components/city-selector';
+import DateSelector from '@/components/date-selector';
 
 import css from './index.module.less';
 
 function Home(props) {
-  const { from, to, citySelectorStatus, dispatch } = props;
+  const { from, to, citySelectorStatus, departDate, dateSelectorStatus, dispatch } = props;
 
   const onBack = useCallback(() => {
     props.history.goBack();
@@ -46,6 +49,16 @@ function Home(props) {
     stationActions.setSelectedCity(name);
   };
 
+  const handleDepartDateClick = useCallback(() => {
+    stationActions.showDateSelect();
+  }, []);
+
+  const onDateSelectorBack = () => {
+    stationActions.hideDateSelect();
+  };
+
+  const onDateClick = (date) => {};
+
   return (
     <div className={css['home-wrapper']}>
       <div className={css['header']}>
@@ -57,7 +70,7 @@ function Home(props) {
         showCitySelector={showCitySelector}
         exchangeFromTo={exchangeFromTo}
       />
-      <DepartureDate />
+      <DepartureDate departDate={departDate} onClick={handleDepartDateClick} />
       <HighSpeed />
       <Btn />
 
@@ -65,6 +78,13 @@ function Home(props) {
         show={citySelectorStatus}
         onBack={onCitySelectorBack}
         onCityClick={onCityClick}
+      />
+
+      <DateSelector
+        title="出发日期"
+        show={dateSelectorStatus}
+        onBack={onDateSelectorBack}
+        onDateClick={onDateClick}
       />
     </div>
   );
@@ -74,7 +94,9 @@ const mapStateToProps = (state) => {
   return {
     from: getStationFrom(state),
     to: getStationTo(state),
-    citySelectorStatus: getCitySelectorStatus(state)
+    citySelectorStatus: getCitySelectorStatus(state),
+    departDate: getDepartDate(state),
+    dateSelectorStatus: getDateSelectorStatus(state)
   };
 };
 

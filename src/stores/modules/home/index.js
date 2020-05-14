@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 import { actionTypes, actionCreators } from './actions';
-
+import { getDate } from '@/utils/format';
 export { actionTypes as homeActionTypes, actionCreators as homeActionCreators };
 
 const defaultState = {
@@ -8,7 +8,8 @@ const defaultState = {
   to: '北京',
   showCitySelector: false,
   currentCitySide: 'from',
-  departureData: '',
+  departureDate: getDate(),
+  showDateSelector: false,
   onlyHighSpeed: false,
   isLoadingCity: false
 };
@@ -23,6 +24,14 @@ export const getStationTo = (state) => {
 
 export const getCitySelectorStatus = (state) => {
   return state.getIn(['home', 'showCitySelector']);
+};
+
+export const getDepartDate = (state) => {
+  return state.getIn(['home', 'departureDate']);
+};
+
+export const getDateSelectorStatus = (state) => {
+  return state.getIn(['home', 'showDateSelector']);
 };
 
 export default (state = fromJS(defaultState), action) => {
@@ -47,6 +56,10 @@ export default (state = fromJS(defaultState), action) => {
       return state.set('departureData', action.payload);
     case actionTypes.TOGGLE_HIGH_SPEED_OPT:
       return state.set('onlyHighSpeed', !state.get('onlyHighSpeed'));
+    case actionTypes.SHOW_DATE_SELECT:
+      return state.set('showDateSelector', true);
+    case actionTypes.HIDE_DATE_SELECT:
+      return state.set('showDateSelector', false);
     default:
       return state;
   }
