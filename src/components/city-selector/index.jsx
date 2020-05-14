@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import CityList from './components/city-list';
 import CityIndex from './components/alpha-index';
+import Suggest from './components/suggest';
 
 import { commonApi } from '@/services';
 import { appActionCreators } from '@/stores/modules/app';
@@ -78,6 +79,16 @@ function CitySelector(props) {
     }
   }, []);
 
+  const handleBack = () => {
+    setSearchKey('');
+    onBack();
+  };
+
+  const handleSuggestClick = name => {
+    setSearchKey('');
+    onCityClick(name);
+  }
+
   const outputCityList = useMemo(() => {
     if (isLoading || !cityList.cityList) {
       return <div>loading...</div>;
@@ -97,7 +108,7 @@ function CitySelector(props) {
       })}
     >
       <div className={css['search-bar']}>
-        <div className={css['back']} onClick={() => onBack()}>
+        <div className={css['back']} onClick={handleBack}>
           <svg width="42" height="42">
             <polyline points="25,13 16,21 25,29" stroke="#fff" strokeWidth="2" fill="none" />
           </svg>
@@ -120,6 +131,7 @@ function CitySelector(props) {
       </div>
       {outputCityList}
       <CityIndex onIndexClick={handleCityIndexClick} />
+      {key && <Suggest searchKey={searchKey} onClick={handleSuggestClick} />}
     </div>
   );
 }
