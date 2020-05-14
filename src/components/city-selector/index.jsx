@@ -1,6 +1,8 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, createContext, useCallback } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
+import CityList from './components/city-list';
+import CityIndex from './components/alpha-index';
 
 import { commonApi } from '@/services';
 import { appActionCreators } from '@/stores/modules/app';
@@ -9,16 +11,19 @@ import css from './index.module.less';
 
 const CITYLIST_KEY = '$_city_list_key';
 
+export const cityClickContext = createContext();
+
 // 通用业务组件的数据，没必要放在redux中做处理
 // 数据没必要从页面中传入
 // 个人理解
 function CitySelector(props) {
   // props解析
-  const { onBack, show, setError } = props;
+  const { onBack, show, setError, onCityClick } = props;
 
   // 声明state
   const [searchKey, setSearchKey] = useState('');
   const [cityList, setCityList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   // 加载城市列表
   useEffect(() => {
@@ -31,7 +36,8 @@ function CitySelector(props) {
         return;
       }
       try {
-        // todo: loading...
+        // loading start
+        setIsLoading(true);
         // 调用api获取
         const res = await commonApi.queryCityList();
         // 写入state
@@ -44,8 +50,10 @@ function CitySelector(props) {
             data: res
           })
         );
+        setIsLoading(false);
       } catch (error) {
         setError(error);
+        setIsLoading(false);
       }
     };
     // 当组件展示,且cityList为空的时候才调用方法
@@ -58,6 +66,29 @@ function CitySelector(props) {
   const key = useMemo(() => {
     return searchKey.trim();
   }, [searchKey]);
+
+  const handleCityClick = useCallback((name) => {
+    onCityClick(name);
+  }, []);
+
+  const handleCityIndexClick = useCallback((index) => {
+    const dom = document.querySelector(`[data-cate="${index}"]`);
+    if (dom) {
+      dom.scrollIntoView();
+    }
+  }, []);
+
+  const outputCityList = useMemo(() => {
+    if (isLoading || !cityList.cityList) {
+      return <div>loading...</div>;
+    } else {
+      return (
+        <cityClickContext.Provider value={handleCityClick}>
+          <CityList sections={cityList.cityList} />
+        </cityClickContext.Provider>
+      );
+    }
+  }, [isLoading, cityList]);
 
   return (
     <div
@@ -87,6 +118,8 @@ function CitySelector(props) {
           />
         </div>
       </div>
+      {outputCityList}
+      <CityIndex onIndexClick={handleCityIndexClick} />
     </div>
   );
 }

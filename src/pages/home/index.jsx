@@ -42,6 +42,10 @@ function Home(props) {
     stationActions.hideCitySelector();
   };
 
+  const onCityClick = (name) => {
+    stationActions.setSelectedCity(name);
+  };
+
   return (
     <div className={css['home-wrapper']}>
       <div className={css['header']}>
@@ -57,7 +61,11 @@ function Home(props) {
       <HighSpeed />
       <Btn />
 
-      <CitySelector show={citySelectorStatus} onBack={onCitySelectorBack} />
+      <CitySelector
+        show={citySelectorStatus}
+        onBack={onCitySelectorBack}
+        onCityClick={onCityClick}
+      />
     </div>
   );
 }

@@ -8,21 +8,21 @@ export const actionTypes = {
   TOGGLE_HIGH_SPEED_OPT: 'home/toggle_high_speed_opt'
 };
 
+const setStationFrom = (from) => {
+  return {
+    type: actionTypes.SET_STATION_FROM,
+    payload: from
+  };
+};
+
+const setStationTo = (to) => {
+  return {
+    type: actionTypes.SET_STATION_TO,
+    payload: to
+  };
+};
+
 export const actionCreators = {
-  setStationFrom: (from) => {
-    return {
-      type: actionTypes.SET_STATION_FROM,
-      payload: from
-    };
-  },
-
-  setStationTo: (to) => {
-    return {
-      type: actionTypes.SET_STATION_TO,
-      payload: to
-    };
-  },
-
   switchStation: () => {
     return {
       type: actionTypes.SWITCH_STATION
@@ -39,6 +39,19 @@ export const actionCreators = {
     return {
       type: actionTypes.SHOW_CITY_SELECT,
       payload: side
+    };
+  },
+
+  setSelectedCity: (name) => {
+    return (dispatch, getState) => {
+      const side = getState().getIn(['home', 'currentCitySide']);
+
+      if (side === 'from') {
+        dispatch(setStationFrom(name));
+      } else {
+        dispatch(setStationTo(name));
+      }
+      dispatch(actionCreators.hideCitySelector());
     };
   },
 
