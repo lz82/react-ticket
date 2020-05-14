@@ -84,10 +84,10 @@ function CitySelector(props) {
     onBack();
   };
 
-  const handleSuggestClick = name => {
+  const handleSuggestClick = (name) => {
     setSearchKey('');
     onCityClick(name);
-  }
+  };
 
   const outputCityList = useMemo(() => {
     if (isLoading || !cityList.cityList) {
