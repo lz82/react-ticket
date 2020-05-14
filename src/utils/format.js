@@ -17,3 +17,12 @@ export const getWeek = (date) => {
     return dayjs().day();
   }
 };
+
+// 获取0时0分0秒
+export const getDateZero = (date) => {
+  if (date) {
+    return dayjs(date).hour(0).minute(0).second(0).millisecond(0);
+  } else {
+    return dayjs().hour(0).minute(0).second(0).millisecond(0);
+  }
+};

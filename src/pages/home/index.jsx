@@ -74,18 +74,22 @@ function Home(props) {
       <HighSpeed />
       <Btn />
 
-      <CitySelector
-        show={citySelectorStatus}
-        onBack={onCitySelectorBack}
-        onCityClick={onCityClick}
-      />
+      {citySelectorStatus ? (
+        <CitySelector
+          show={citySelectorStatus}
+          onBack={onCitySelectorBack}
+          onCityClick={onCityClick}
+        />
+      ) : null}
 
-      <DateSelector
-        title="出发日期"
-        show={dateSelectorStatus}
-        onBack={onDateSelectorBack}
-        onDateClick={onDateClick}
-      />
+      {dateSelectorStatus ? (
+        <DateSelector
+          title="出发日期"
+          show={dateSelectorStatus}
+          onBack={onDateSelectorBack}
+          onDateClick={onDateClick}
+        />
+      ) : null}
     </div>
   );
 }
