@@ -8,7 +8,7 @@ export default function HighSpeed(props) {
   return (
     <div className={css['high-speed-wrapper']}>
       <div className={css['label']}>只看高铁/动车</div>
-      <div className={css['switch-wrapper']} onClick={() => toggle()}>
+      <div className={css['switch-wrapper']} onClick={toggle}>
         <input type="hidden" name="highSpeed" value={highSpeed} />
         <div
           className={classnames(css['track'], {

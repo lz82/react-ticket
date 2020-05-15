@@ -8,7 +8,8 @@ import {
   getStationTo,
   getCitySelectorStatus,
   getDepartDate,
-  getDateSelectorStatus
+  getDateSelectorStatus,
+  getHighSpeedStatus
 } from '@/stores/modules/home';
 
 import Navbar from '@/components/navbar';
@@ -23,7 +24,15 @@ import DateSelector from '@/components/date-selector';
 import css from './index.module.less';
 
 function Home(props) {
-  const { from, to, citySelectorStatus, departDate, dateSelectorStatus, dispatch } = props;
+  const {
+    from,
+    to,
+    citySelectorStatus,
+    departDate,
+    dateSelectorStatus,
+    highSpeed,
+    dispatch
+  } = props;
 
   const onBack = useCallback(() => {
     props.history.goBack();
@@ -61,6 +70,10 @@ function Home(props) {
     stationActions.setSelectedDate(date);
   };
 
+  const handleToggleHighSpeed = () => {
+    stationActions.toggleHighSpeedOpt();
+  };
+
   return (
     <div className={css['home-wrapper']}>
       <div className={css['header']}>
@@ -73,7 +86,7 @@ function Home(props) {
         exchangeFromTo={exchangeFromTo}
       />
       <DepartureDate departDate={departDate} onClick={handleDepartDateClick} />
-      <HighSpeed />
+      <HighSpeed highSpeed={highSpeed} toggle={handleToggleHighSpeed} />
       <Btn />
 
       {citySelectorStatus ? (
@@ -102,7 +115,8 @@ const mapStateToProps = (state) => {
     to: getStationTo(state),
     citySelectorStatus: getCitySelectorStatus(state),
     departDate: getDepartDate(state),
-    dateSelectorStatus: getDateSelectorStatus(state)
+    dateSelectorStatus: getDateSelectorStatus(state),
+    highSpeed: getHighSpeedStatus(state)
   };
 };
 

@@ -34,6 +34,10 @@ export const getDateSelectorStatus = (state) => {
   return state.getIn(['home', 'showDateSelector']);
 };
 
+export const getHighSpeedStatus = state => {
+  return state.getIn(['home', 'onlyHighSpeed'])
+}
+
 export default (state = fromJS(defaultState), action) => {
   switch (action.type) {
     case actionTypes.SET_STATION_FROM:
