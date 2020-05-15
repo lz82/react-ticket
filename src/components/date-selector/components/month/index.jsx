@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import Week from '../week';
 import css from './index.module.less';
@@ -62,3 +63,7 @@ export default function Month(props) {
     </div>
   );
 }
+
+Month.propTypes = {
+  startDay: PropTypes.object.isRequired
+};
