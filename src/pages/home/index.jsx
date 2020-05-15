@@ -79,15 +79,17 @@ function Home(props) {
       <div className={css['header']}>
         <Navbar title="首页" onBack={onBack} />
       </div>
-      <Station
-        from={from}
-        to={to}
-        showCitySelector={showCitySelector}
-        exchangeFromTo={exchangeFromTo}
-      />
-      <DepartureDate departDate={departDate} onClick={handleDepartDateClick} />
-      <HighSpeed highSpeed={highSpeed} toggle={handleToggleHighSpeed} />
-      <Btn />
+      <form action="/query">
+        <Station
+          from={from}
+          to={to}
+          showCitySelector={showCitySelector}
+          exchangeFromTo={exchangeFromTo}
+        />
+        <DepartureDate departDate={departDate} onClick={handleDepartDateClick} />
+        <HighSpeed highSpeed={highSpeed} toggle={handleToggleHighSpeed} />
+        <Btn />
+      </form>
 
       {citySelectorStatus ? (
         <CitySelector
