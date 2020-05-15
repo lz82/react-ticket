@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import css from './index.module.less';
 
 export default function HighSpeed(props) {
-  const { highSpeed = true, toggle } = props;
+  const { highSpeed, toggle } = props;
   return (
     <div className={css['high-speed-wrapper']}>
       <div className={css['label']}>只看高铁/动车</div>
