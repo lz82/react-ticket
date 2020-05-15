@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import classnames from 'classnames';
 
 import Navbar from '@/components/navbar';
@@ -9,8 +9,10 @@ import { getDateZero } from '@/utils/format';
 
 import css from './index.module.less';
 
+export const dateSelectContext = createContext();
+
 export default function DateSelector(props) {
-  const { title, show, onBack } = props;
+  const { title, show, onBack, onDateClick } = props;
 
   let months = [];
 
@@ -23,17 +25,19 @@ export default function DateSelector(props) {
   months.push(currentMonthFirstDate.add(2, 'month'));
 
   return (
-    <div
-      className={classnames(css['date-selector-wrapper'], {
-        hidden: !show
-      })}
-    >
-      <Navbar title={title} onBack={onBack} />
-      <div className={css['month-container']}>
-        {months.map((month) => (
-          <Month key={month} startDay={month} />
-        ))}
+    <dateSelectContext.Provider value={onDateClick}>
+      <div
+        className={classnames(css['date-selector-wrapper'], {
+          hidden: !show
+        })}
+      >
+        <Navbar title={title} onBack={onBack} />
+        <div className={css['month-container']}>
+          {months.map((month) => (
+            <Month key={month} startDay={month} />
+          ))}
+        </div>
       </div>
-    </div>
+    </dateSelectContext.Provider>
   );
 }

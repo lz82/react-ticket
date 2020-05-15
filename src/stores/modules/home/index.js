@@ -53,7 +53,7 @@ export default (state = fromJS(defaultState), action) => {
     case actionTypes.HIDE_CITY_SELECT:
       return state.set('showCitySelector', false);
     case actionTypes.SET_DEPARTURE_DATE:
-      return state.set('departureData', action.payload);
+      return state.set('departureDate', action.payload);
     case actionTypes.TOGGLE_HIGH_SPEED_OPT:
       return state.set('onlyHighSpeed', !state.get('onlyHighSpeed'));
     case actionTypes.SHOW_DATE_SELECT:

@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export const actionTypes = {
   SET_STATION_FROM: 'home/set_station_from',
   SET_STATION_TO: 'home/set_station_to',
@@ -73,6 +75,13 @@ export const actionCreators = {
     return {
       type: actionTypes.SET_DEPARTURE_DATE,
       payload: date
+    };
+  },
+
+  setSelectedDate: (date) => {
+    return (dispatch) => {
+      dispatch(actionCreators.setDepartureDate(dayjs(date).format('YYYY-MM-DD')));
+      dispatch(actionCreators.hideDateSelect());
     };
   },
 

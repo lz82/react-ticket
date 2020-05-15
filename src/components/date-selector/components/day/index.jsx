@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classnames from 'classnames';
+
+import { dateSelectContext } from '../../index';
 
 import { getDateZero } from '@/utils/format';
 
 import css from './index.module.less';
 
 export default function Day(props) {
-  const { day, onSelect } = props;
+  const { day } = props;
 
   const disabled = day < getDateZero();
 
@@ -14,7 +16,6 @@ export default function Day(props) {
     if (!day) {
       return '';
     }
-    console.log('today', day, getDateZero());
     if (day.format('YYYY-MM-DD') === getDateZero().format('YYYY-MM-DD')) {
       return '今天';
     } else {
@@ -23,6 +24,16 @@ export default function Day(props) {
   };
   const weekend = day && [0, 6].includes(day.day());
 
+  const handleSelect = useContext(dateSelectContext);
+
+  const onClick = () => {
+    if (!day || disabled) {
+      return;
+    } else {
+      handleSelect(day);
+    }
+  };
+
   return (
     <td
       className={classnames(css['day-wrapper'], {
@@ -30,7 +41,7 @@ export default function Day(props) {
         [css['disabled']]: disabled,
         [css['weekend']]: weekend
       })}
-      onClick={onSelect}
+      onClick={onClick}
     >
       {getDayString()}
     </td>

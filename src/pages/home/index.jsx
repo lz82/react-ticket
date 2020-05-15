@@ -57,7 +57,9 @@ function Home(props) {
     stationActions.hideDateSelect();
   };
 
-  const onDateClick = (date) => {};
+  const onDateClick = (date) => {
+    stationActions.setSelectedDate(date);
+  };
 
   return (
     <div className={css['home-wrapper']}>

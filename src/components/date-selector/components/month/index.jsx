@@ -15,7 +15,6 @@ export default function Month(props) {
   }
 
   const firstWeek = startDay.day();
-  console.log(firstWeek);
   const unshiftCnt = firstWeek > 0 ? firstWeek - 1 : 6;
   for (let i = 0; i < unshiftCnt; i++) {
     days.unshift(null);
