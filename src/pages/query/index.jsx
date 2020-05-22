@@ -7,6 +7,7 @@ import URI from 'urijs';
 import { queryApi } from '@/services';
 
 import Navbar from '@/components/navbar';
+import DateSelector from './containers/date-selector'
 
 import {
   getFrom,
@@ -58,6 +59,9 @@ function Query(props) {
   return (
     <div className={css['query-wrapper']}>
       <Navbar title={`${from} ⇀ ${to}`} onBack={onBack} />
+      <DateSelector
+        currentDate={departureDate}
+      />
     </div>
   );
 }
