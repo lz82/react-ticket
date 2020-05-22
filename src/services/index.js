@@ -1,3 +1,4 @@
 import * as commonApi from './common';
+import * as queryApi from './query';
 
-export { commonApi };
+export { commonApi, queryApi };
