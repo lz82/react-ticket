@@ -1,14 +1,15 @@
 import React, { useMemo } from 'react';
 
 import { getWeek, getDate } from '@/utils/format';
+import { WEEK } from '@/utils/constant';
 
 import css from './index.module.less';
 
-const week = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+// const week = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
 
 export default function DepartureDate(props) {
   const { departDate, onClick } = props;
-  const weekString = week[getWeek(departDate) - 1];
+  const weekString = WEEK[getWeek(departDate)];
   const today = getDate();
 
   const outputWeek = useMemo(() => {

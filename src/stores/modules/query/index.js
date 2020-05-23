@@ -24,12 +24,17 @@ export const getUriParsedStatus = (state) => {
   return state.getIn(['query', 'uriPased']);
 };
 
+export const getTrainList = (state) => {
+  return state.getIn(['query', 'trainList']);
+};
+
 const defaultState = {
   from: '',
   to: '',
   departureDate: '',
   highSpeed: false,
-  uriPased: false
+  uriPased: false,
+  trainList: []
 };
 
 export default (state = fromJS(defaultState), action) => {
@@ -44,6 +49,9 @@ export default (state = fromJS(defaultState), action) => {
       return state.set('highSpeed', action.payload);
     case actionTypes.SET_URI_PARSED_STATUS:
       return state.set('uriPased', action.payload);
+
+    case actionTypes.SET_TRAIN_LIST:
+      return state.set('trainList', action.payload)
     default:
       return state;
   }

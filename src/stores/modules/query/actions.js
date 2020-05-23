@@ -3,7 +3,8 @@ export const actionTypes = {
   SET_TO: 'query/set_to',
   SET_DEPARTURE_DATE: 'query/set_departure_data',
   SET_HIGH_SPEED: 'query/set_high_speed',
-  SET_URI_PARSED_STATUS: 'query/set_uri_pased_status'
+  SET_URI_PARSED_STATUS: 'query/set_uri_pased_status',
+  SET_TRAIN_LIST: 'query/set_train_list'
 };
 
 export const actionCreators = {
@@ -39,6 +40,13 @@ export const actionCreators = {
     return {
       type: actionTypes.SET_URI_PARSED_STATUS,
       payload: status
+    };
+  },
+
+  setTrainList(data) {
+    return {
+      type: actionTypes.SET_TRAIN_LIST,
+      payload: data
     };
   }
 };

@@ -7,7 +7,9 @@ import URI from 'urijs';
 import { queryApi } from '@/services';
 
 import Navbar from '@/components/navbar';
-import DateSelector from './containers/date-selector'
+import DateSelector from './containers/date-selector';
+import TrainListItem from './containers/list-item';
+import TabBar from './containers/tab-bar';
 
 import {
   getFrom,
@@ -15,13 +17,14 @@ import {
   getDepartDate,
   getHighSpeed,
   queryActionCreators,
-  getUriParsedStatus
+  getUriParsedStatus,
+  getTrainList
 } from '@/stores/modules/query';
 
 import css from './index.module.less';
 
 function Query(props) {
-  const { from, to, departureDate, highSpeed, uriParseStatus, dispatch } = props;
+  const { from, to, departureDate, highSpeed, uriParseStatus, trainList, dispatch } = props;
 
   useEffect(() => {
     const query = URI.parseQuery(props.location.search);
@@ -32,21 +35,26 @@ function Query(props) {
     queryActions.setUriParsedStatus(true);
   }, []);
 
-  const fetchTrainList = async () => {
-    const res = await queryApi.queryTrainList({
-      from,
-      to,
-      departureDate,
-      highSpeed
-    });
-    console.log(res);
+  const fetchTrainList = async (data) => {
+    const {
+      dataMap: {
+        directTrainInfo: { trains }
+      }
+    } = await queryApi.queryTrainList(data);
+    queryActions.setTrainList(trains);
   };
 
   useEffect(() => {
     if (uriParseStatus) {
-      fetchTrainList();
+      const postData = {
+        from,
+        to,
+        departureDate,
+        highSpeed
+      };
+      fetchTrainList(postData);
     }
-  }, [uriParseStatus]);
+  }, [uriParseStatus, from, to, departureDate, highSpeed]);
 
   const onBack = useCallback(() => {
     props.history.goBack();
@@ -58,10 +66,22 @@ function Query(props) {
 
   return (
     <div className={css['query-wrapper']}>
-      <Navbar title={`${from} ⇀ ${to}`} onBack={onBack} />
-      <DateSelector
-        currentDate={departureDate}
-      />
+      <div className={css['header-fixed']}>
+        <Navbar title={`${from} ⇀ ${to}`} onBack={onBack} />
+        <DateSelector
+          date={departureDate}
+          prev={queryActions.setDepartDate}
+          next={queryActions.setDepartDate}
+        />
+      </div>
+      <ul className={css['train-list']}>
+        {trainList.map((item) => (
+          <TrainListItem {...item} key={item.trainNumber} />
+        ))}
+      </ul>
+      <div className={css['tab-bar-wrapper']}>
+        <TabBar />
+      </div>
     </div>
   );
 }
@@ -72,7 +92,8 @@ const mapStateToProps = (state) => {
     to: getTo(state),
     departureDate: getDepartDate(state),
     highSpeed: getHighSpeed(state),
-    uriParseStatus: getUriParsedStatus(state)
+    uriParseStatus: getUriParsedStatus(state),
+    trainList: getTrainList(state)
   };
 };
 

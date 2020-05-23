@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
 
 // 获取年-月-日
 export const getDate = (date) => {
@@ -8,6 +9,16 @@ export const getDate = (date) => {
     return dayjs().format('YYYY-MM-DD');
   }
 };
+
+// 获取格式化日期
+export const getFormatDate = (date, format) => {
+  return dayjs(date).format(format)
+}
+
+// 获取汉语周几
+export const getLocalWeek = date => {
+  return dayjs(date).locale('zh-cn').format('ddd')
+}
 
 // 获取周几
 export const getWeek = (date) => {
