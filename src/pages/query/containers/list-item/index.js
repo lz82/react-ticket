@@ -1,3 +1,3 @@
-import View from '../../components/list-item'
+import View from '../../components/list-item';
 
-export default View
+export default View;

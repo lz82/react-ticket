@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { getFormatDate, getLocalWeek, getDateZero, getDate } from '@/utils/format';
 
 export default (date, prev, next) => {
-
   const currentString = useMemo(() => {
     return `${getFormatDate(date, 'MM月DD日')} ${getLocalWeek(date)}`;
   }, [date]);

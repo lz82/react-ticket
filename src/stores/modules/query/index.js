@@ -51,7 +51,7 @@ export default (state = fromJS(defaultState), action) => {
       return state.set('uriPased', action.payload);
 
     case actionTypes.SET_TRAIN_LIST:
-      return state.set('trainList', action.payload)
+      return state.set('trainList', action.payload);
     default:
       return state;
   }

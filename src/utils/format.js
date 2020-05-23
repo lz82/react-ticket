@@ -12,13 +12,13 @@ export const getDate = (date) => {
 
 // 获取格式化日期
 export const getFormatDate = (date, format) => {
-  return dayjs(date).format(format)
-}
+  return dayjs(date).format(format);
+};
 
 // 获取汉语周几
-export const getLocalWeek = date => {
-  return dayjs(date).locale('zh-cn').format('ddd')
-}
+export const getLocalWeek = (date) => {
+  return dayjs(date).locale('zh-cn').format('ddd');
+};
 
 // 获取周几
 export const getWeek = (date) => {
