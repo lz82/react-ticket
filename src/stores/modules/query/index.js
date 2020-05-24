@@ -28,13 +28,28 @@ export const getTrainList = (state) => {
   return state.getIn(['query', 'trainList']);
 };
 
+export const getOrderType = (state) => {
+  return state.getIn(['query', 'orderType']);
+};
+
+export const getOnlyTicket = (state) => {
+  return state.getIn(['query', 'onlyTicket']);
+};
+
+export const getFilterStatus = (state) => {
+  return state.getIn(['query', 'showFilter']);
+};
+
 const defaultState = {
   from: '',
   to: '',
   departureDate: '',
   highSpeed: false,
   uriPased: false,
-  trainList: []
+  trainList: [],
+  orderType: 0,
+  onlyTicket: false,
+  showFilter: false
 };
 
 export default (state = fromJS(defaultState), action) => {
@@ -52,6 +67,15 @@ export default (state = fromJS(defaultState), action) => {
 
     case actionTypes.SET_TRAIN_LIST:
       return state.set('trainList', action.payload);
+
+    case actionTypes.TOGGLE_ORDER_TYPE:
+      return state.set('orderType', !state.get('orderType') - 0);
+    case actionTypes.TOGGLE_HIGH_SPEED:
+      return state.set('highSpeed', !state.get('highSpeed'));
+    case actionTypes.TOGGLE_ONLY_TICKET:
+      return state.set('onlyTicket', !state.get('onlyTicket'));
+    case actionTypes.TOGGLE_SHOW_FILTER:
+      return state.set('showFilter', !state.get('showFilter'));
     default:
       return state;
   }

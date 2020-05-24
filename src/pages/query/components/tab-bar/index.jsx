@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { memo } from 'react';
 import classnames from 'classnames';
 import css from './index.module.less';
-const ORDER_DEPART = 1;
-const noChecked = 0;
-export default function TabBar(props) {
+
+import { ORDER_TYPE } from '@/utils/constant';
+
+import FilterModal from '../filter-modal';
+
+const TabBar = memo(function TabBar(props) {
   const {
     toggleOrderType,
     toggleHighSpeed,
@@ -19,7 +22,7 @@ export default function TabBar(props) {
       <div className={css['bottom-filters']}>
         <span className={css['item']} onClick={toggleOrderType}>
           <i className={classnames('iconfont', 'icon-clock', [css['icon']])} />
-          {orderType === ORDER_DEPART ? '出发 早→晚' : '耗时 短→长'}
+          {orderType === ORDER_TYPE.DURATION ? '耗时 短→长' : '出发 早→晚'}
         </span>
         <span
           className={classnames(css['item'], { [css['item-on']]: highSpeed })}
@@ -37,7 +40,7 @@ export default function TabBar(props) {
         </span>
         <span
           className={classnames(css['item'], {
-            [css['item-on']]: isFiltersVisible || !noChecked
+            [css['item-on']]: isFiltersVisible
           })}
           onClick={toggleIsFiltersVisible}
         >
@@ -45,6 +48,9 @@ export default function TabBar(props) {
           综合筛选
         </span>
       </div>
+      {isFiltersVisible ? <FilterModal /> : null}
     </div>
   );
-}
+});
+
+export default TabBar;

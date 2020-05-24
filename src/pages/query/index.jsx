@@ -18,13 +18,27 @@ import {
   getHighSpeed,
   queryActionCreators,
   getUriParsedStatus,
-  getTrainList
+  getTrainList,
+  getOrderType,
+  getOnlyTicket,
+  getFilterStatus
 } from '@/stores/modules/query';
 
 import css from './index.module.less';
 
 function Query(props) {
-  const { from, to, departureDate, highSpeed, uriParseStatus, trainList, dispatch } = props;
+  const {
+    from,
+    to,
+    departureDate,
+    highSpeed,
+    uriParseStatus,
+    trainList,
+    orderType,
+    onlyTicket,
+    showFilter,
+    dispatch
+  } = props;
 
   useEffect(() => {
     const query = URI.parseQuery(props.location.search);
@@ -50,11 +64,13 @@ function Query(props) {
         from,
         to,
         departureDate,
-        highSpeed
+        highSpeed,
+        orderType,
+        onlyTicket
       };
       fetchTrainList(postData);
     }
-  }, [uriParseStatus, from, to, departureDate, highSpeed]);
+  }, [uriParseStatus, from, to, departureDate, highSpeed, orderType, onlyTicket]);
 
   const onBack = useCallback(() => {
     props.history.goBack();
@@ -80,7 +96,16 @@ function Query(props) {
         ))}
       </ul>
       <div className={css['tab-bar-wrapper']}>
-        <TabBar />
+        <TabBar
+          highSpeed={highSpeed}
+          orderType={orderType}
+          onlyTickets={onlyTicket}
+          isFiltersVisible={showFilter}
+          toggleOrderType={queryActions.toggleOrderType}
+          toggleHighSpeed={queryActions.toggleHighSpeed}
+          toggleOnlyTickets={queryActions.toggleOnlyTicket}
+          toggleIsFiltersVisible={queryActions.toggleShowFilter}
+        />
       </div>
     </div>
   );
@@ -93,7 +118,10 @@ const mapStateToProps = (state) => {
     departureDate: getDepartDate(state),
     highSpeed: getHighSpeed(state),
     uriParseStatus: getUriParsedStatus(state),
-    trainList: getTrainList(state)
+    trainList: getTrainList(state),
+    orderType: getOrderType(state),
+    onlyTicket: getOnlyTicket(state),
+    showFilter: getFilterStatus(state)
   };
 };
 

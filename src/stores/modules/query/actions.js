@@ -4,7 +4,11 @@ export const actionTypes = {
   SET_DEPARTURE_DATE: 'query/set_departure_data',
   SET_HIGH_SPEED: 'query/set_high_speed',
   SET_URI_PARSED_STATUS: 'query/set_uri_pased_status',
-  SET_TRAIN_LIST: 'query/set_train_list'
+  SET_TRAIN_LIST: 'query/set_train_list',
+  TOGGLE_ORDER_TYPE: 'query/toggle_order_type',
+  TOGGLE_HIGH_SPEED: 'query/toggle_hight_speed',
+  TOGGLE_ONLY_TICKET: 'query/toggle_only_ticket',
+  TOGGLE_SHOW_FILTER: 'query/toggle_show_filter'
 };
 
 export const actionCreators = {
@@ -47,6 +51,30 @@ export const actionCreators = {
     return {
       type: actionTypes.SET_TRAIN_LIST,
       payload: data
+    };
+  },
+
+  toggleOrderType() {
+    return {
+      type: actionTypes.TOGGLE_ORDER_TYPE
+    };
+  },
+
+  toggleHighSpeed() {
+    return {
+      type: actionTypes.TOGGLE_HIGH_SPEED
+    };
+  },
+
+  toggleOnlyTicket() {
+    return {
+      type: actionTypes.TOGGLE_ONLY_TICKET
+    };
+  },
+
+  toggleShowFilter() {
+    return {
+      type: actionTypes.TOGGLE_SHOW_FILTER
     };
   }
 };

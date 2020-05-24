@@ -172,3 +172,21 @@ top: -1px;
   3. 每个月的第一天依次+1天，直到月份发生变化
   4. 每个月的月头和月尾分别补齐（用null）
   5. 把日期分配到week
+
+  - useMemo
+  `bindActionCreators`每次都会产生一个新的句柄，因此需要用`useMemo`来包裹起来,同时`connect`的第二个参数也不要
+  ```
+    const queryActions = useMemo(() => {
+    return bindActionCreators(queryActionCreators, dispatch);
+  }, []);
+
+  const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch
+  };
+};
+```
+
+- useState
+给useState赋值初始值时，如果只希望在页面初始化时赋值一次，可以传入一个函数，而不是一个对象。
+
