@@ -6,13 +6,17 @@ export const actionTypes = {
   SET_URI_PARSED_STATUS: 'query/set_uri_pased_status',
   SET_TRAIN_LIST: 'query/set_train_list',
   SET_FILTER_ARR_STATION: 'query/set_filter_arr_station',
-  SET_FILTER_DEP_STATION: 'query/set_filter_arr_station',
-  SET_FILTER_TRAIN_TYPE: 'query/set_filter_arr_station',
-  SET_FILTER_TICKET_TYPE: 'query/set_filter_arr_station',
+  SET_FILTER_DEP_STATION: 'query/set_filter_dep_station',
+  SET_FILTER_TRAIN_TYPE: 'query/set_filter_train_type',
+  SET_FILTER_TICKET_TYPE: 'query/set_filter_ticket_type',
   TOGGLE_ORDER_TYPE: 'query/toggle_order_type',
   TOGGLE_HIGH_SPEED: 'query/toggle_hight_speed',
   TOGGLE_ONLY_TICKET: 'query/toggle_only_ticket',
-  TOGGLE_SHOW_FILTER: 'query/toggle_show_filter'
+  TOGGLE_SHOW_FILTER: 'query/toggle_show_filter',
+  SET_CHECKED_ARR_STATION: 'query/set_checked_arr_station',
+  SET_CHECKED_DEP_STATION: 'query/set_checked_dep_station',
+  SET_CHECKED_TRAIN_TYPE: 'query/set_checked_train_type',
+  SET_CHECKED_TICKET_TYPE: 'query/set_checked_ticket_type'
 };
 
 export const actionCreators = {
@@ -107,6 +111,34 @@ export const actionCreators = {
   toggleShowFilter() {
     return {
       type: actionTypes.TOGGLE_SHOW_FILTER
+    };
+  },
+
+  setCheckedArrStation(data) {
+    return {
+      type: actionTypes.SET_CHECKED_ARR_STATION,
+      payload: data
+    };
+  },
+
+  setCheckedDepStation(data) {
+    return {
+      type: actionTypes.SET_CHECKED_DEP_STATION,
+      payload: data
+    };
+  },
+
+  setCheckedTrainType(data) {
+    return {
+      type: actionTypes.SET_CHECKED_TRAIN_TYPE,
+      payload: data
+    };
+  },
+
+  setCheckedTicketType(data) {
+    return {
+      type: actionTypes.SET_CHECKED_TICKET_TYPE,
+      payload: data
     };
   }
 };

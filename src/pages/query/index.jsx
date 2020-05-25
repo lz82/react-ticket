@@ -21,7 +21,11 @@ import {
   getTrainList,
   getOrderType,
   getOnlyTicket,
-  getFilterStatus
+  getFilterStatus,
+  getFilterArrStation,
+  getFilterDepStation,
+  getFilterTicketType,
+  getFilterTrainType
 } from '@/stores/modules/query';
 
 import css from './index.module.less';
@@ -37,6 +41,7 @@ function Query(props) {
     orderType,
     onlyTicket,
     showFilter,
+    filter,
     dispatch
   } = props;
 
@@ -59,6 +64,11 @@ function Query(props) {
       }
     } = await queryApi.queryTrainList(data);
     queryActions.setTrainList(trains);
+    console.log(queryActions);
+    queryActions.setFilterArrStation(arrStation);
+    queryActions.setFilterDepStation(depStation);
+    queryActions.setFilterTicketType(ticketType);
+    queryActions.setFilterTrainType(trainType);
   };
 
   useEffect(() => {
@@ -104,6 +114,7 @@ function Query(props) {
           orderType={orderType}
           onlyTickets={onlyTicket}
           isFiltersVisible={showFilter}
+          filter={filter}
           toggleOrderType={queryActions.toggleOrderType}
           toggleHighSpeed={queryActions.toggleHighSpeed}
           toggleOnlyTickets={queryActions.toggleOnlyTicket}
@@ -124,7 +135,13 @@ const mapStateToProps = (state) => {
     trainList: getTrainList(state),
     orderType: getOrderType(state),
     onlyTicket: getOnlyTicket(state),
-    showFilter: getFilterStatus(state)
+    showFilter: getFilterStatus(state),
+    filter: {
+      arrStation: getFilterArrStation(state),
+      depStation: getFilterDepStation(state),
+      trainType: getFilterTrainType(state),
+      ticketType: getFilterTicketType(state)
+    }
   };
 };
 

@@ -56,6 +56,22 @@ export const getFilterTrainType = (state) => {
   return state.getIn(['query', 'filterTrainType']);
 };
 
+export const getCheckedArrStation = (state) => {
+  return state.getIn(['query', 'checkedArrStation']);
+};
+
+export const getCheckedDepStation = (state) => {
+  return state.getIn(['query', 'checkedDepStation']);
+};
+
+export const getCheckedTicketType = (state) => {
+  return state.getIn(['query', 'checkedTicketType']);
+};
+
+export const getCheckedTrainType = (state) => {
+  return state.getIn(['query', 'checkedTrainType']);
+};
+
 const defaultState = {
   from: '',
   to: '',
@@ -69,7 +85,11 @@ const defaultState = {
   filterArrStation: [],
   filterDepStation: [],
   filterTicketType: [],
-  filterTrainType: []
+  filterTrainType: [],
+  checkedArrStation: {},
+  checkedDepStation: {},
+  checkedTicketType: {},
+  checkedTrainType: {}
 };
 
 export default (state = fromJS(defaultState), action) => {

@@ -4,12 +4,25 @@ import Group from '../group';
 import css from './index.module.less';
 
 export default function FilterModal(props) {
-  const {
-    isResetDisabled,
-    reset,
-    sure,
-    group = [{ title: '坐席类型' }, { title: '车次类型' }]
-  } = props;
+  const { isResetDisabled, reset, sure, filter } = props;
+  const group = [
+    {
+      title: '坐席类型',
+      options: filter.ticketType
+    },
+    {
+      title: '车次类型',
+      options: filter.trainType
+    },
+    {
+      title: '出发车站',
+      options: filter.depStation
+    },
+    {
+      title: '到达车站',
+      options: filter.arrStation
+    }
+  ];
   return (
     <div className={css['filter-modal-wrapper']}>
       <div className={css['dialog']}>
@@ -33,7 +46,9 @@ export default function FilterModal(props) {
             ))} */}
             {group.map((item) => (
               <Group key={item.title} title={item.title}>
-                <h1>haha</h1>
+                {item.options.map((option) => {
+                  return <li key={option.value}>{option.name}</li>;
+                })}
               </Group>
             ))}
           </div>

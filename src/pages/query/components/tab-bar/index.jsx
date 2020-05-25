@@ -15,7 +15,8 @@ const TabBar = memo(function TabBar(props) {
     highSpeed,
     orderType,
     onlyTickets,
-    isFiltersVisible
+    isFiltersVisible,
+    filter
   } = props;
   return (
     <div className={css['bottom']}>
@@ -48,7 +49,7 @@ const TabBar = memo(function TabBar(props) {
           综合筛选
         </span>
       </div>
-      {isFiltersVisible ? <FilterModal /> : null}
+      {isFiltersVisible ? <FilterModal filter={filter} /> : null}
     </div>
   );
 });

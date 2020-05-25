@@ -5,7 +5,7 @@ export default function Group(props) {
   return (
     <div className={css['group-wrapper']}>
       <h3>{title}</h3>
-      {props.children}
+      <ul>{props.children}</ul>
     </div>
   );
 }
