@@ -52,7 +52,10 @@ function Query(props) {
   const fetchTrainList = async (data) => {
     const {
       dataMap: {
-        directTrainInfo: { trains }
+        directTrainInfo: {
+          trains,
+          filter: { arrStation, depStation, ticketType, trainType }
+        }
       }
     } = await queryApi.queryTrainList(data);
     queryActions.setTrainList(trains);

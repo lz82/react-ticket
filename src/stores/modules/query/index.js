@@ -40,6 +40,22 @@ export const getFilterStatus = (state) => {
   return state.getIn(['query', 'showFilter']);
 };
 
+export const getFilterArrStation = (state) => {
+  return state.getIn(['query', 'filterArrStation']);
+};
+
+export const getFilterDepStation = (state) => {
+  return state.getIn(['query', 'filterDepStation']);
+};
+
+export const getFilterTicketType = (state) => {
+  return state.getIn(['query', 'filterTicketType']);
+};
+
+export const getFilterTrainType = (state) => {
+  return state.getIn(['query', 'filterTrainType']);
+};
+
 const defaultState = {
   from: '',
   to: '',
@@ -49,7 +65,11 @@ const defaultState = {
   trainList: [],
   orderType: 0,
   onlyTicket: false,
-  showFilter: false
+  showFilter: false,
+  filterArrStation: [],
+  filterDepStation: [],
+  filterTicketType: [],
+  filterTrainType: []
 };
 
 export default (state = fromJS(defaultState), action) => {
@@ -67,6 +87,14 @@ export default (state = fromJS(defaultState), action) => {
 
     case actionTypes.SET_TRAIN_LIST:
       return state.set('trainList', action.payload);
+    case actionTypes.SET_FILTER_ARR_STATION:
+      return state.set('filterArrStation', action.payload);
+    case actionTypes.SET_FILTER_DEP_STATION:
+      return state.set('filterDepStation', action.payload);
+    case actionTypes.SET_FILTER_TICKET_TYPE:
+      return state.set('filterTicketType', action.payload);
+    case actionTypes.SET_FILTER_TRAIN_TYPE:
+      return state.set('filterTrainType', action.payload);
 
     case actionTypes.TOGGLE_ORDER_TYPE:
       return state.set('orderType', !state.get('orderType') - 0);

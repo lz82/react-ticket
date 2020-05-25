@@ -5,6 +5,10 @@ export const actionTypes = {
   SET_HIGH_SPEED: 'query/set_high_speed',
   SET_URI_PARSED_STATUS: 'query/set_uri_pased_status',
   SET_TRAIN_LIST: 'query/set_train_list',
+  SET_FILTER_ARR_STATION: 'query/set_filter_arr_station',
+  SET_FILTER_DEP_STATION: 'query/set_filter_arr_station',
+  SET_FILTER_TRAIN_TYPE: 'query/set_filter_arr_station',
+  SET_FILTER_TICKET_TYPE: 'query/set_filter_arr_station',
   TOGGLE_ORDER_TYPE: 'query/toggle_order_type',
   TOGGLE_HIGH_SPEED: 'query/toggle_hight_speed',
   TOGGLE_ONLY_TICKET: 'query/toggle_only_ticket',
@@ -50,6 +54,34 @@ export const actionCreators = {
   setTrainList(data) {
     return {
       type: actionTypes.SET_TRAIN_LIST,
+      payload: data
+    };
+  },
+
+  setFilterArrStation(data) {
+    return {
+      type: actionTypes.SET_FILTER_ARR_STATION,
+      payload: data
+    };
+  },
+
+  setFilterDepStation(data) {
+    return {
+      type: actionTypes.SET_FILTER_DEP_STATION,
+      payload: data
+    };
+  },
+
+  setFilterTrainType(data) {
+    return {
+      type: actionTypes.SET_FILTER_TRAIN_TYPE,
+      payload: data
+    };
+  },
+
+  setFilterTicketType(data) {
+    return {
+      type: actionTypes.SET_FILTER_TICKET_TYPE,
       payload: data
     };
   },
