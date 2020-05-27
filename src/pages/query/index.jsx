@@ -25,7 +25,11 @@ import {
   getFilterArrStation,
   getFilterDepStation,
   getFilterTicketType,
-  getFilterTrainType
+  getFilterTrainType,
+  getCheckedArrStation,
+  getCheckedDepStation,
+  getCheckedTicketType,
+  getCheckedTrainType
 } from '@/stores/modules/query';
 
 import css from './index.module.less';
@@ -42,8 +46,14 @@ function Query(props) {
     onlyTicket,
     showFilter,
     filter,
+    checkedArrStation,
+    checkedDepStation,
+    checkedTicketType,
+    checkedTrainType,
     dispatch
   } = props;
+
+  console.log(checkedTicketType);
 
   useEffect(() => {
     const query = URI.parseQuery(props.location.search);
@@ -64,7 +74,6 @@ function Query(props) {
       }
     } = await queryApi.queryTrainList(data);
     queryActions.setTrainList(trains);
-    console.log(queryActions);
     queryActions.setFilterArrStation(arrStation);
     queryActions.setFilterDepStation(depStation);
     queryActions.setFilterTicketType(ticketType);
@@ -79,11 +88,35 @@ function Query(props) {
         departureDate,
         highSpeed,
         orderType,
-        onlyTicket
+        onlyTicket,
+        checkedTicketType: Object.keys(checkedTicketType)
+          ? Object.keys(checkedTicketType).join(',')
+          : '',
+        checkedTrainType: Object.keys(checkedTrainType)
+          ? Object.keys(checkedTrainType).join(',')
+          : '',
+        checkedDepStation: Object.keys(checkedDepStation)
+          ? Object.keys(checkedDepStation).join(',')
+          : '',
+        checkedArrStation: Object.keys(checkedArrStation)
+          ? Object.keys(checkedArrStation).join(',')
+          : ''
       };
       fetchTrainList(postData);
     }
-  }, [uriParseStatus, from, to, departureDate, highSpeed, orderType, onlyTicket]);
+  }, [
+    uriParseStatus,
+    from,
+    to,
+    departureDate,
+    highSpeed,
+    orderType,
+    onlyTicket,
+    Object.keys(checkedTicketType).join(','),
+    Object.keys(checkedTrainType).join(','),
+    Object.keys(checkedDepStation).join(','),
+    Object.keys(checkedArrStation).join(',')
+  ]);
 
   const onBack = useCallback(() => {
     props.history.goBack();
@@ -115,10 +148,18 @@ function Query(props) {
           onlyTickets={onlyTicket}
           isFiltersVisible={showFilter}
           filter={filter}
+          checkedArrStation={checkedArrStation}
+          checkedDepStation={checkedDepStation}
+          checkedTicketType={checkedTicketType}
+          checkedTrainType={checkedTrainType}
           toggleOrderType={queryActions.toggleOrderType}
           toggleHighSpeed={queryActions.toggleHighSpeed}
           toggleOnlyTickets={queryActions.toggleOnlyTicket}
           toggleIsFiltersVisible={queryActions.toggleShowFilter}
+          setCheckedArrStation={queryActions.setCheckedArrStation}
+          setCheckedDepStation={queryActions.setCheckedDepStation}
+          setCheckedTrainType={queryActions.setCheckedTrainType}
+          setCheckedTicketType={queryActions.setCheckedTicketType}
         />
       </div>
     </div>
@@ -141,7 +182,11 @@ const mapStateToProps = (state) => {
       depStation: getFilterDepStation(state),
       trainType: getFilterTrainType(state),
       ticketType: getFilterTicketType(state)
-    }
+    },
+    checkedArrStation: getCheckedArrStation(state),
+    checkedDepStation: getCheckedDepStation(state),
+    checkedTicketType: getCheckedTicketType(state),
+    checkedTrainType: getCheckedTrainType(state)
   };
 };
 

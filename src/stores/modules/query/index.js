@@ -57,19 +57,27 @@ export const getFilterTrainType = (state) => {
 };
 
 export const getCheckedArrStation = (state) => {
-  return state.getIn(['query', 'checkedArrStation']);
+  const temp = state.getIn(['query', 'checkedArrStation']);
+  console.log(temp);
+  return temp ? temp.toJS() : {};
 };
 
 export const getCheckedDepStation = (state) => {
-  return state.getIn(['query', 'checkedDepStation']);
+  const temp = state.getIn(['query', 'checkedDepStation']);
+  console.log(temp);
+  return temp ? temp.toJS() : {};
 };
 
 export const getCheckedTicketType = (state) => {
-  return state.getIn(['query', 'checkedTicketType']);
+  const temp = state.getIn(['query', 'checkedTicketType']);
+  console.log(temp);
+  return temp ? temp.toJS() : {};
 };
 
 export const getCheckedTrainType = (state) => {
-  return state.getIn(['query', 'checkedTrainType']);
+  const temp = state.getIn(['query', 'checkedTrainType']);
+  console.log(temp);
+  return temp ? temp.toJS() : {};
 };
 
 const defaultState = {
@@ -88,7 +96,7 @@ const defaultState = {
   filterTrainType: [],
   checkedArrStation: {},
   checkedDepStation: {},
-  checkedTicketType: {},
+  checkedTicketType: { 3: true, 7: true },
   checkedTrainType: {}
 };
 
@@ -115,6 +123,15 @@ export default (state = fromJS(defaultState), action) => {
       return state.set('filterTicketType', action.payload);
     case actionTypes.SET_FILTER_TRAIN_TYPE:
       return state.set('filterTrainType', action.payload);
+
+    case actionTypes.SET_CHECKED_ARR_STATION:
+      return state.set('checkedArrStation', fromJS(action.payload));
+    case actionTypes.SET_CHECKED_DEP_STATION:
+      return state.set('checkedDepStation', fromJS(action.payload));
+    case actionTypes.SET_CHECKED_TICKET_TYPE:
+      return state.set('checkedTicketType', fromJS(action.payload));
+    case actionTypes.SET_CHECKED_TRAIN_TYPE:
+      return state.set('checkedTrainType', fromJS(action.payload));
 
     case actionTypes.TOGGLE_ORDER_TYPE:
       return state.set('orderType', !state.get('orderType') - 0);

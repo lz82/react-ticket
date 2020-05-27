@@ -16,6 +16,14 @@ const TabBar = memo(function TabBar(props) {
     orderType,
     onlyTickets,
     isFiltersVisible,
+    checkedArrStation,
+    checkedDepStation,
+    checkedTicketType,
+    checkedTrainType,
+    setCheckedArrStation,
+    setCheckedDepStation,
+    setCheckedTrainType,
+    setCheckedTicketType,
     filter
   } = props;
   return (
@@ -49,7 +57,20 @@ const TabBar = memo(function TabBar(props) {
           综合筛选
         </span>
       </div>
-      {isFiltersVisible ? <FilterModal filter={filter} /> : null}
+      {isFiltersVisible ? (
+        <FilterModal
+          toggleIsFiltersVisible={toggleIsFiltersVisible}
+          filter={filter}
+          checkedArrStation={checkedArrStation}
+          checkedDepStation={checkedDepStation}
+          checkedTicketType={checkedTicketType}
+          checkedTrainType={checkedTrainType}
+          setCheckedArrStation={setCheckedArrStation}
+          setCheckedDepStation={setCheckedDepStation}
+          setCheckedTrainType={setCheckedTrainType}
+          setCheckedTicketType={setCheckedTicketType}
+        />
+      ) : null}
     </div>
   );
 });
