@@ -101,6 +101,9 @@ const defaultState = {
 };
 
 export default (state = fromJS(defaultState), action) => {
+  const checkedTrainType = state.get('checkedTrainType')
+    ? state.get('checkedTrainType').toJS()
+    : {};
   switch (action.type) {
     case actionTypes.SET_FROM:
       return state.set('from', action.payload);
@@ -109,7 +112,15 @@ export default (state = fromJS(defaultState), action) => {
     case actionTypes.SET_DEPARTURE_DATE:
       return state.set('departureDate', action.payload);
     case actionTypes.SET_HIGH_SPEED:
-      return state.set('highSpeed', action.payload);
+      return action.payload
+        ? state.merge({
+            highSpeed: true,
+            checkedTrainType: fromJS({
+              1: true,
+              5: true
+            })
+          })
+        : state.set('highSpeed', action.payload);
     case actionTypes.SET_URI_PARSED_STATUS:
       return state.set('uriPased', action.payload);
 
@@ -131,12 +142,30 @@ export default (state = fromJS(defaultState), action) => {
     case actionTypes.SET_CHECKED_TICKET_TYPE:
       return state.set('checkedTicketType', fromJS(action.payload));
     case actionTypes.SET_CHECKED_TRAIN_TYPE:
-      return state.set('checkedTrainType', fromJS(action.payload));
-
+      if (1 in action.payload && 5 in action.payload) {
+        return state.merge({
+          highSpeed: true,
+          checkedTrainType: fromJS(action.payload)
+        });
+      } else {
+        return state.set('checkedTrainType', fromJS(action.payload));
+      }
     case actionTypes.TOGGLE_ORDER_TYPE:
       return state.set('orderType', !state.get('orderType') - 0);
     case actionTypes.TOGGLE_HIGH_SPEED:
-      return state.set('highSpeed', !state.get('highSpeed'));
+      if (!state.get('highSpeed')) {
+        return state.merge({
+          highSpeed: true,
+          checkedTrainType: fromJS({ ...checkedTrainType, 1: true, 5: true })
+        });
+      } else {
+        delete checkedTrainType[1];
+        delete checkedTrainType[5];
+        return state.merge({
+          highSpeed: false,
+          checkedTrainType: fromJS(checkedTrainType)
+        });
+      }
     case actionTypes.TOGGLE_ONLY_TICKET:
       return state.set('onlyTicket', !state.get('onlyTicket'));
     case actionTypes.TOGGLE_SHOW_FILTER:

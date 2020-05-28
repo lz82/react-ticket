@@ -60,7 +60,7 @@ function Query(props) {
     queryActions.setFrom(query.from);
     queryActions.setTo(query.to);
     queryActions.setDepartDate(query.date);
-    queryActions.setHighSpeed(query.highSpeed);
+    queryActions.setHighSpeed(query.highSpeed === 'true');
     queryActions.setUriParsedStatus(true);
   }, []);
 

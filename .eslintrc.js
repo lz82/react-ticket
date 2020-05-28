@@ -11,10 +11,12 @@ module.exports = {
     // ReactDOM: false
     // document: true
   },
-  rules: {},
+  rules: {
+    complexity: ['error', { max: 30 }]
+  },
   settings: {
     react: {
-      version:  'detect'
+      version: 'detect'
     }
   }
-}
+};
