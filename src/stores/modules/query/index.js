@@ -148,7 +148,10 @@ export default (state = fromJS(defaultState), action) => {
           checkedTrainType: fromJS(action.payload)
         });
       } else {
-        return state.set('checkedTrainType', fromJS(action.payload));
+        return state.merge({
+          highSpeed: false,
+          checkedTrainType: fromJS(action.payload)
+        });
       }
     case actionTypes.TOGGLE_ORDER_TYPE:
       return state.set('orderType', !state.get('orderType') - 0);
