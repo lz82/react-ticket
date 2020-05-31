@@ -4,7 +4,8 @@ import css from './index.module.less';
 
 const TrainListItem = memo(function (props) {
   const { dTime, aTime, dStation, aStation, trainNumber, date, time, priceMsg, dayAfter } = props;
-  const url = date;
+  console.log(trainNumber, date)
+  const url = `/ticket?dStation=${dStation}&aStation=${aStation}&trainNum=${trainNumber}&date=${date}`;
   return (
     <li className={css['train-list-item-wrapper']}>
       <a href={url}>

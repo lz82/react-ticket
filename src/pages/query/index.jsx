@@ -7,7 +7,7 @@ import URI from 'urijs';
 import { queryApi } from '@/services';
 
 import Navbar from '@/components/navbar';
-import DateSelector from './containers/date-selector';
+import DateNav from '@/components/date-nav';
 import TrainListItem from './containers/list-item';
 import TabBar from './containers/tab-bar';
 
@@ -130,7 +130,7 @@ function Query(props) {
     <div className={css['query-wrapper']}>
       <div className={css['header-fixed']}>
         <Navbar title={`${from} ⇀ ${to}`} onBack={onBack} />
-        <DateSelector
+        <DateNav
           date={departureDate}
           prev={queryActions.setDepartDate}
           next={queryActions.setDepartDate}
@@ -138,7 +138,7 @@ function Query(props) {
       </div>
       <ul className={css['train-list']}>
         {trainList.map((item) => (
-          <TrainListItem {...item} key={item.trainNumber} />
+          <TrainListItem {...item} date={departureDate} key={item.trainNumber} />
         ))}
       </ul>
       <div className={css['tab-bar-wrapper']}>
