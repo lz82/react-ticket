@@ -41,7 +41,7 @@ function Ticket(props) {
   return (
     <div className={css['ticket-wrapper']}>
       <NavBar title="D717" onBack={onBack} />
-      <DateNav date={dDate} />
+      <DateNav date={dDate} next={ticketActions.setDDate} prev={ticketActions.setDDate} />
     </div>
   );
 }
