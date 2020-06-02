@@ -25,21 +25,21 @@ export default function TrainDetail(props) {
 
   return (
     <div className={css['train-detail-wrapper']}>
-      <div className="content">
-        <div className="left">
-          <p className="city">{departStation}</p>
-          <p className="time">{departTimeStr}</p>
-          <p className="date">{departDateStr}</p>
+      <div className={css['content']}>
+        <div className={css['left']}>
+          <p className={css['city']}>{departStation}</p>
+          <p className={css['time']}>{departTimeStr}</p>
+          <p className={css['date']}>{departDateStr}</p>
         </div>
-        <div className="middle">
-          <p className="train-name">{trainNumber}</p>
-          <p className="train-mid">{props.children}</p>
-          <p className="train-time">耗时{durationStr}</p>
+        <div className={css['middle']}>
+          <p className={css['train-name']}>{trainNumber}</p>
+          <p className={css['train-mid']}>{props.children}</p>
+          <p className={css['train-time']}>耗时{durationStr}</p>
         </div>
-        <div className="right">
-          <p className="city">{arriveStation}</p>
-          <p className="time">{arriveTimeStr}</p>
-          <p className="date">{arriveDateStr}</p>
+        <div className={css['right']}>
+          <p className={css['city']}>{arriveStation}</p>
+          <p className={css['time']}>{arriveTimeStr}</p>
+          <p className={css['date']}>{arriveDateStr}</p>
         </div>
       </div>
     </div>

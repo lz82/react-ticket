@@ -5,20 +5,42 @@ import URI from 'urijs';
 
 import NavBar from '@/components/navbar';
 import DateNav from '@/components/date-nav';
+import TrainDetail from '@/components/train-detail';
+import Schedule from './containers/schedule';
+
+import { commonApi } from '@/services';
+import { getDate } from '@/utils/format';
 
 import {
   getDStation,
   getAStation,
   getTrainNum,
   getDDate,
+  getDTime,
+  getADate,
+  getATime,
   getUriParsedStatus,
-  ticketActionCreators
+  ticketActionCreators,
+  getShowSchedule
 } from '@/stores/modules/ticket';
 
 import css from './index.module.less';
+import { getDurationTime } from '../../stores/modules/ticket';
 
 function Ticket(props) {
-  const { dStation, aStation, trainNum, dDate, uriParsedStatus, dispatch } = props;
+  const {
+    dStation,
+    aStation,
+    trainNum,
+    dDate,
+    dTime,
+    aDate,
+    aTime,
+    durationTime,
+    uriParsedStatus,
+    showSchedule,
+    dispatch
+  } = props;
 
   useEffect(() => {
     const query = URI.parseQuery(props.location.search);
@@ -30,6 +52,30 @@ function Ticket(props) {
     ticketActions.setTicketParsedStatus(true);
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const {
+          detail: { arriveDate, departTimeStr, arriveTimeStr, durationStr },
+          candidates
+        } = await commonApi.queryTicket({
+          trainNum,
+          dDate
+        });
+        ticketActions.setADate(getDate(arriveDate));
+        ticketActions.setDTime(departTimeStr);
+        ticketActions.setATime(arriveTimeStr);
+        ticketActions.setDurationTime(durationStr);
+        ticketActions.setCandidates(candidates);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    if (uriParsedStatus) {
+      fetchData();
+    }
+  }, [uriParsedStatus]);
+
   const ticketActions = useMemo(() => {
     return bindActionCreators(ticketActionCreators, dispatch);
   }, []);
@@ -38,10 +84,39 @@ function Ticket(props) {
     props.history.goBack();
   }, []);
 
+  const onScheduleClick = () => {
+    ticketActions.toggleShowSchedule();
+  };
+
+  const onMaskClick = () => {
+    ticketActions.toggleShowSchedule();
+  };
+
   return (
     <div className={css['ticket-wrapper']}>
-      <NavBar title="D717" onBack={onBack} />
+      <NavBar title={trainNum} onBack={onBack} />
       <DateNav date={dDate} next={ticketActions.setDDate} prev={ticketActions.setDDate} />
+      <TrainDetail
+        departStation={dStation}
+        arriveStation={aStation}
+        trainNumber={trainNum}
+        departDate={dDate}
+        arriveDate={aDate}
+        departTimeStr={dTime}
+        arriveTimeStr={aTime}
+        durationStr={durationTime}
+      >
+        <span className={css['left']} />
+        <span className={css['schedule']} onClick={onScheduleClick}>
+          时刻表
+        </span>
+        <span className={css['right']} />
+      </TrainDetail>
+      {showSchedule && (
+        <div className={css['mask']} onClick={onMaskClick}>
+          <Schedule />
+        </div>
+      )}
     </div>
   );
 }
@@ -52,7 +127,12 @@ const mapStateToProps = (state) => {
     aStation: getAStation(state),
     trainNum: getTrainNum(state),
     dDate: getDDate(state),
-    uriParsedStatus: getUriParsedStatus(state)
+    dTime: getDTime(state),
+    aDate: getADate(state),
+    aTime: getATime(state),
+    durationTime: getDurationTime(state),
+    uriParsedStatus: getUriParsedStatus(state),
+    showSchedule: getShowSchedule(state)
   };
 };
 
