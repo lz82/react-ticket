@@ -10,6 +10,7 @@ export default function Schedule(props) {
       try {
         const res = await commonApi.querySchedule();
         setScheduleList(res);
+        console.log(scheduleList);
       } catch (err) {
         console.log(err);
       }
