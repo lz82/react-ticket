@@ -44,7 +44,8 @@ export const getShowSchedule = (state) => {
 };
 
 export const getCandidates = (state) => {
-  return state.getIn(['ticket', 'candidates']);
+  const temp = state.getIn(['ticket', 'candidates']);
+  return temp ? temp.toJS() : [];
 };
 
 const defaultState = {
@@ -85,7 +86,7 @@ export default (state = fromJS(defaultState), action) => {
     case actionTypes.TOGGLE_SHOW_SCHEDULE:
       return state.set('showSchedule', !state.get('showSchedule'));
     case actionTypes.SET_CANDIDATES:
-      return state.set('candidates', payload);
+      return state.set('candidates', fromJS(payload));
     default:
       return state;
   }
