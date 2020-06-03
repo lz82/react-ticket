@@ -7,6 +7,7 @@ import NavBar from '@/components/navbar';
 import DateNav from '@/components/date-nav';
 import TrainDetail from '@/components/train-detail';
 import Schedule from './containers/schedule';
+import Candidate from './containers/candidate';
 
 import { commonApi } from '@/services';
 import { getDate } from '@/utils/format';
@@ -21,7 +22,8 @@ import {
   getATime,
   getUriParsedStatus,
   ticketActionCreators,
-  getShowSchedule
+  getShowSchedule,
+  getCandidates
 } from '@/stores/modules/ticket';
 
 import css from './index.module.less';
@@ -39,6 +41,7 @@ function Ticket(props) {
     durationTime,
     uriParsedStatus,
     showSchedule,
+    candidates,
     dispatch
   } = props;
 
@@ -112,6 +115,7 @@ function Ticket(props) {
         </span>
         <span className={css['right']} />
       </TrainDetail>
+      <Candidate candidate={candidates} />
       {showSchedule && (
         <div className={css['mask']} onClick={onMaskClick}>
           <Schedule />
@@ -132,7 +136,8 @@ const mapStateToProps = (state) => {
     aTime: getATime(state),
     durationTime: getDurationTime(state),
     uriParsedStatus: getUriParsedStatus(state),
-    showSchedule: getShowSchedule(state)
+    showSchedule: getShowSchedule(state),
+    candidates: getCandidates(state)
   };
 };
 

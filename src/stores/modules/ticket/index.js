@@ -43,6 +43,10 @@ export const getShowSchedule = (state) => {
   return state.getIn(['ticket', 'showSchedule']);
 };
 
+export const getCandidates = (state) => {
+  return state.getIn(['ticket', 'candidates']);
+};
+
 const defaultState = {
   dStation: '',
   aStation: '',
@@ -53,7 +57,8 @@ const defaultState = {
   aTime: '',
   durationTime: '',
   isUriParsed: false,
-  showSchedule: false
+  showSchedule: false,
+  candidates: []
 };
 
 export default (state = fromJS(defaultState), action) => {
@@ -79,6 +84,8 @@ export default (state = fromJS(defaultState), action) => {
       return state.set('isUriParsed', payload);
     case actionTypes.TOGGLE_SHOW_SCHEDULE:
       return state.set('showSchedule', !state.get('showSchedule'));
+    case actionTypes.SET_CANDIDATES:
+      return state.set('candidates', payload);
     default:
       return state;
   }
