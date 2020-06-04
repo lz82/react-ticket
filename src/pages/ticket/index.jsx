@@ -115,7 +115,13 @@ function Ticket(props) {
         </span>
         <span className={css['right']} />
       </TrainDetail>
-      <Candidate candidate={candidates} />
+      <Candidate
+        candidate={candidates}
+        trainNumber={trainNum}
+        departStation={dStation}
+        arriveStation={aStation}
+        departDate={dDate}
+      />
       {showSchedule && (
         <div className={css['mask']} onClick={onMaskClick}>
           <Schedule />
