@@ -45,7 +45,7 @@ export default function Candidate(props) {
                   .setSearch('type', item.type)
                   .setSearch('date', dayjs(departDate).format('YYYY-MM-DD'))
                   .toString();
-                console.log(src)
+                console.log(src);
                 return (
                   <div key={channel.name} className={css['channel']}>
                     <div className={css['middle']}>

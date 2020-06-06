@@ -53,8 +53,6 @@ function Query(props) {
     dispatch
   } = props;
 
-  console.log(checkedTicketType);
-
   useEffect(() => {
     const query = URI.parseQuery(props.location.search);
     queryActions.setFrom(query.from);
