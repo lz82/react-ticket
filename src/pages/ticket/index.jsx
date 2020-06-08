@@ -46,7 +46,7 @@ function Ticket(props) {
   } = props;
 
   useEffect(() => {
-    console.log('init ticket...')
+    console.log('init ticket...');
     const query = URI.parseQuery(props.location.search);
     document.title = query.trainNum;
     ticketActions.setDStation(query.dStation);

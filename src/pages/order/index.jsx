@@ -68,7 +68,7 @@ function Order(props) {
 
   return (
     <div className={css['order-wrapper']}>
-      <Navbar title="订单填写" onBack={onBack} />
+      <Navbar title="订单填写" onBack={onBack} fixed />
       <TrainDetail
         departDate={dDate}
         arriveDate={aDate}
@@ -83,7 +83,7 @@ function Order(props) {
       </TrainDetail>
       <Ticket price={price} type={seatType} />
       <Passengers
-        passengers={getPassengers}
+        passengers={passengers}
         addAdult={orderActions.addAdult}
         addChild={orderActions.addChild}
       />

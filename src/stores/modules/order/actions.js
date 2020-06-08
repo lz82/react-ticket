@@ -51,6 +51,15 @@ const setPrice = (val) => {
   };
 };
 
+const setPassenger = (val) => {
+  return {
+    type: actionTypes.SET_PASSENGER,
+    payload: val
+  };
+};
+
+let passenger_id = 0;
+
 export const actionCreators = {
   setTrainNum(val) {
     return {
@@ -124,14 +133,36 @@ export const actionCreators = {
   },
 
   addAdult() {
-    return (dispatch) => {
-      console.log('add adult');
+    return (dispatch, getState) => {
+      const list = getState().getIn(['order', 'passengers']).toJS();
+      const newList = [
+        ...list,
+        {
+          id: ++passenger_id,
+          ticketType: 'adult',
+          name: '',
+          licenceNo: ''
+        }
+      ];
+      dispatch(setPassenger(newList));
     };
   },
 
   addChild() {
-    return (dispatch) => {
-      console.log('add child');
+    return (dispatch, getState) => {
+      const list = getState().getIn(['order', 'passengers']).toJS();
+      const newList = [
+        ...list,
+        {
+          id: ++passenger_id,
+          ticketType: 'child',
+          name: '',
+          gender: '',
+          birthday: '',
+          followAdultName: ''
+        }
+      ];
+      dispatch(setPassenger(newList));
     };
   }
 };

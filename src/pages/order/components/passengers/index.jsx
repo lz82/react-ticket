@@ -6,22 +6,22 @@ export default function Passengers(props) {
   const { passengers, addAdult, addChild } = props;
   return (
     <div className={css['passenger-wrapper']}>
-      {/* <ul>
+      <ul>
         {passengers.map((passenger) => {
           return (
             <Passenger
               {...passenger}
-              followAdultName={nameMap[passenger.followAdult]}
-              showTicketTypeMenu={showTicketTypeMenu}
-              showGenderMenu={showGenderMenu}
-              showFollowAdultMenu={showFollowAdultMenu}
-              onRemove={removePassenger}
-              onUpdate={updatePassenger}
+              // followAdultName={nameMap[passenger.followAdult]}
+              // showTicketTypeMenu={showTicketTypeMenu}
+              // showGenderMenu={showGenderMenu}
+              // showFollowAdultMenu={showFollowAdultMenu}
+              // onRemove={removePassenger}
+              // onUpdate={updatePassenger}
               key={passenger.id}
             />
           );
         })}
-      </ul> */}
+      </ul>
       <section className={css['add']}>
         <div className={css['adult']} onClick={addAdult}>
           添加成人
