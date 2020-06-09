@@ -164,5 +164,15 @@ export const actionCreators = {
       ];
       dispatch(setPassenger(newList));
     };
+  },
+
+  updatePassenger(id, info) {
+    return (dispatch, getState) => {
+      let list = getState().getIn(['order', 'passengers']).toJS();
+      const updateIdx = list.findIndex((item) => item.id === id);
+      const newInfo = Object.assign(list[updateIdx], { ...info });
+      list.splice(updateIdx, 1, newInfo);
+      dispatch(setPassenger(list));
+    };
   }
 };

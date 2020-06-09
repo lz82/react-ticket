@@ -86,6 +86,8 @@ function Order(props) {
         passengers={passengers}
         addAdult={orderActions.addAdult}
         addChild={orderActions.addChild}
+        updatePassenger={orderActions.updatePassenger}
+        removePassenger={orderActions.removePassenger}
       />
     </div>
   );

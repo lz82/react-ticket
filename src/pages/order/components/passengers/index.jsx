@@ -3,7 +3,7 @@ import Passenger from './passenger';
 
 import css from './index.module.less';
 export default function Passengers(props) {
-  const { passengers, addAdult, addChild } = props;
+  const { passengers, addAdult, addChild, removePassenger, updatePassenger } = props;
   return (
     <div className={css['passenger-wrapper']}>
       <ul>
@@ -15,8 +15,8 @@ export default function Passengers(props) {
               // showTicketTypeMenu={showTicketTypeMenu}
               // showGenderMenu={showGenderMenu}
               // showFollowAdultMenu={showFollowAdultMenu}
-              // onRemove={removePassenger}
-              // onUpdate={updatePassenger}
+              onRemove={removePassenger}
+              onUpdate={updatePassenger}
               key={passenger.id}
             />
           );
