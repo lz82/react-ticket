@@ -82,7 +82,7 @@ export default function Passenger(props) {
               type="text"
               className={classnames(css['input'], css['followAdult'])}
               placeholder="请选择"
-              value={followAdultName}
+              value={followAdultName || ''}
               onClick={() => showFollowAdultMenu(id)}
               readOnly
             />

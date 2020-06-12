@@ -6,6 +6,9 @@ import Navbar from '@/components/navbar';
 import TrainDetail from '@/components/train-detail';
 import Ticket from './containers/ticket';
 import Passengers from './containers/passengers';
+import Menu from '@/components/menu';
+import Seat from './containers/seat';
+import Account from './containers/account';
 
 import {
   orderActionCreators,
@@ -20,7 +23,9 @@ import {
   getUriParsedStatus,
   getDuration,
   getPrice,
-  getPassengers
+  getPassengers,
+  getMenu,
+  getMenuVisible
 } from '@/stores/modules/order';
 
 import css from './index.module.less';
@@ -39,7 +44,9 @@ function Order(props) {
     uriParsedStatus,
     duration,
     price,
-    passengers
+    passengers,
+    menu,
+    menuVisible
   } = props;
 
   useEffect(() => {
@@ -88,7 +95,15 @@ function Order(props) {
         addChild={orderActions.addChild}
         updatePassenger={orderActions.updatePassenger}
         removePassenger={orderActions.removePassenger}
+        showTicketTypeMenu={orderActions.showTicketTypeMenu}
+        showGenderMenu={orderActions.showGenderMenu}
+        showFollowAdultMenu={orderActions.showFollowAdultMenu}
       />
+      {passengers.length > 0 && (
+        <Seat passengers={passengers} updatePassenger={orderActions.updatePassenger} />
+      )}
+      <Account length={passengers.length} price={price} />
+      {menuVisible ? <Menu show={menuVisible} {...menu} hideMenu={orderActions.hideMenu} /> : null}
     </div>
   );
 }
@@ -106,7 +121,9 @@ const mapStateToProps = (state) => {
     uriParsedStatus: getUriParsedStatus(state),
     duration: getDuration(state),
     price: getPrice(state),
-    passengers: getPassengers(state)
+    passengers: getPassengers(state),
+    menu: getMenu(state),
+    menuVisible: getMenuVisible(state)
   };
 };
 

@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Passenger from './passenger';
 
 import css from './index.module.less';
 export default function Passengers(props) {
-  const { passengers, addAdult, addChild, removePassenger, updatePassenger } = props;
+  const {
+    passengers,
+    addAdult,
+    addChild,
+    removePassenger,
+    updatePassenger,
+    showTicketTypeMenu,
+    showGenderMenu,
+    showFollowAdultMenu
+  } = props;
+
+  const nameMap = useMemo(() => {
+    let ret = {};
+    passengers.forEach((item) => {
+      ret[item.id] = item.name;
+    });
+    return ret;
+  }, [passengers]);
+
   return (
     <div className={css['passenger-wrapper']}>
       <ul>
@@ -11,10 +29,10 @@ export default function Passengers(props) {
           return (
             <Passenger
               {...passenger}
-              // followAdultName={nameMap[passenger.followAdult]}
-              // showTicketTypeMenu={showTicketTypeMenu}
-              // showGenderMenu={showGenderMenu}
-              // showFollowAdultMenu={showFollowAdultMenu}
+              followAdultName={nameMap[passenger.followAdult]}
+              showTicketTypeMenu={showTicketTypeMenu}
+              showGenderMenu={showGenderMenu}
+              showFollowAdultMenu={showFollowAdultMenu}
               onRemove={removePassenger}
               onUpdate={updatePassenger}
               key={passenger.id}

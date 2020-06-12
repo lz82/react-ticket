@@ -13,7 +13,9 @@ export const actionTypes = {
   SET_DURATION: 'order/set_duration',
   SET_PRICE: 'order/set_price',
   SET_URI_PARSE_STATUS: 'order/set_uri_parse_status',
-  SET_PASSENGER: 'order/set_passenger'
+  SET_PASSENGER: 'order/set_passenger',
+  SET_MENU: 'order/set_menu',
+  SET_MENU_VISIBLE: 'order/set_menu_visible'
 };
 
 const setDTime = (val) => {
@@ -173,6 +175,169 @@ export const actionCreators = {
       const newInfo = Object.assign(list[updateIdx], { ...info });
       list.splice(updateIdx, 1, newInfo);
       dispatch(setPassenger(list));
+    };
+  },
+
+  removePassenger(id) {
+    return (dispatch, getState) => {
+      let list = getState().getIn(['order', 'passengers']).toJS();
+      const delIndex = list.findIndex((item) => item.id === id);
+      list.splice(delIndex, 1);
+      dispatch(setPassenger(list));
+    };
+  },
+
+  setMenu(val) {
+    return {
+      type: actionTypes.SET_MENU,
+      payload: val
+    };
+  },
+
+  setMenuVisible(status) {
+    return {
+      type: actionTypes.SET_MENU_VISIBLE,
+      payload: status
+    };
+  },
+
+  showMenu(menu) {
+    return (dispatch) => {
+      dispatch(actionCreators.setMenu(menu));
+      dispatch(actionCreators.setMenuVisible(true));
+    };
+  },
+
+  hideMenu() {
+    return actionCreators.setMenuVisible(false);
+  },
+
+  showTicketTypeMenu(id) {
+    return (dispatch, getState) => {
+      const list = getState().getIn(['order', 'passengers']).toJS();
+
+      const passenger = list.find((item) => item.id === id);
+
+      if (!passenger) {
+        return;
+      }
+
+      dispatch(
+        actionCreators.showMenu({
+          onPress(ticketType) {
+            console.log('onpress', ticketType);
+            if (ticketType === 'adult') {
+              dispatch(
+                actionCreators.updatePassenger(
+                  id,
+                  {
+                    ticketType,
+                    licenceNo: ''
+                  },
+                  ['gender', 'followAdult', 'birthday']
+                )
+              );
+            } else {
+              const adult = list.find(
+                (passenger) => passenger.id !== id && passenger.ticketType === 'adult'
+              );
+              if (adult) {
+                dispatch(
+                  actionCreators.updatePassenger(
+                    id,
+                    {
+                      ticketType,
+                      gender: '',
+                      followAdult: adult.id,
+                      birthday: ''
+                    },
+                    ['licenceNo']
+                  )
+                );
+              } else {
+                alert('没有其他成人乘客');
+              }
+            }
+
+            dispatch(actionCreators.hideMenu());
+          },
+          options: [
+            {
+              title: '成人票',
+              value: 'adult',
+              active: passenger.ticketType === 'adult'
+            },
+            {
+              title: '儿童票',
+              value: 'child',
+              active: passenger.ticketType === 'child'
+            }
+          ]
+        })
+      );
+    };
+  },
+
+  showGenderMenu(id) {
+    return (dispatch, getState) => {
+      const list = getState().getIn(['order', 'passengers']).toJS();
+
+      const passenger = list.find((item) => item.id === id);
+
+      if (!passenger) {
+        return;
+      }
+
+      dispatch(
+        actionCreators.showMenu({
+          onPress(gender) {
+            dispatch(actionCreators.updatePassenger(id, { gender }));
+            dispatch(actionCreators.hideMenu());
+          },
+          options: [
+            {
+              title: '男',
+              value: 'male',
+              active: passenger.gender === 'male'
+            },
+            {
+              title: '女',
+              value: 'female',
+              active: passenger.gender === 'female'
+            }
+          ]
+        })
+      );
+    };
+  },
+
+  showFollowAdultMenu(id) {
+    return (dispatch, getState) => {
+      const list = getState().getIn(['order', 'passengers']).toJS();
+
+      const passenger = list.find((item) => item.id === id);
+
+      if (!passenger) {
+        return;
+      }
+
+      dispatch(
+        actionCreators.showMenu({
+          onPress(followAdult) {
+            dispatch(actionCreators.updatePassenger(id, { followAdult }));
+            dispatch(actionCreators.hideMenu());
+          },
+          options: list
+            .filter((passenger) => passenger.ticketType === 'adult')
+            .map((adult) => {
+              return {
+                title: adult.name,
+                value: adult.id,
+                active: adult.id === passenger.followAdult
+              };
+            })
+        })
+      );
     };
   }
 };

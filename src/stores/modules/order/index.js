@@ -52,6 +52,15 @@ export const getPassengers = (state) => {
   return temp ? temp.toJS() : [];
 };
 
+export const getMenu = (state) => {
+  const temp = state.getIn(['order', 'menu']);
+  return temp ? temp.toJS() : null;
+};
+
+export const getMenuVisible = (state) => {
+  return state.getIn(['order', 'isMenuVisible']);
+};
+
 const defaultState = {
   trainNum: '',
   dStation: '',
@@ -64,7 +73,9 @@ const defaultState = {
   uriParsed: false,
   duration: '',
   price: 0,
-  passengers: []
+  passengers: [],
+  menu: {},
+  isMenuVisible: false
 };
 
 export default (state = fromJS(defaultState), action) => {
@@ -94,6 +105,10 @@ export default (state = fromJS(defaultState), action) => {
       return state.set('price', payload);
     case actionTypes.SET_PASSENGER:
       return state.set('passengers', fromJS(payload));
+    case actionTypes.SET_MENU:
+      return state.set('menu', fromJS(payload));
+    case actionTypes.SET_MENU_VISIBLE:
+      return state.set('isMenuVisible', payload);
     default:
       return state;
   }
